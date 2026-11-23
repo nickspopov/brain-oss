@@ -1,0 +1,77 @@
+# Brain behind a TLS-terminating reverse proxy (Caddy). Run from this directory:
+#   docker compose up -d --build
+# Isolation:
+#   - own compose project name and own networks;
+#   - brain publishes no host ports: the only way in is caddy → http://brain:7460 on brain-net;
+#   - brain-net is internal (no route to the internet or the host LAN); caddy alone has egress;
+#   - no docker.sock, no privileged, all capabilities dropped, no-new-privileges, read-only root fs.
+# Already running a reverse proxy or tunnel on the host? Remove the caddy service and attach your proxy to
+# brain-net instead (see README.md "Using your own reverse proxy").
+name: brain
+
+services:
+  brain:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    image: brain:local
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - brain-data:/data
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    read_only: true
+    user: "1000:1000"
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 384m
+    memswap_limit: 384m
+    pids_limit: 256
+    networks:
+      - brain-net
+    stop_grace_period: 60s
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  caddy:
+    image: caddy:${CADDY_TAG:-2}
+    restart: unless-stopped
+    env_file: proxy.env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    tmpfs:
+      - /tmp:size=16m
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 128m
+    pids_limit: 128
+    networks:
+      - brain-net
+      - egress
+    depends_on:
+      brain:
+        condition: service_healthy
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+networks:
+  brain-net:
+    internal: true
+  egress: {}
+
+volumes:
+  brain-data:
+  caddy-data:
+  caddy-config:

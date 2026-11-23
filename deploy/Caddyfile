@@ -1,0 +1,6 @@
+# Public hostname from proxy.env (BRAIN_DOMAIN). Caddy obtains and renews the TLS certificate itself.
+# Caddy sets X-Forwarded-For to the client address, so BRAIN_TRUSTED_PROXY=1 gives Brain the real client IP.
+{$BRAIN_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy brain:7460
+}

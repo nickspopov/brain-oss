@@ -1,0 +1,42 @@
+# Synthetic stemmer test data: invented Russian/English questions over the invented corpus in corpus/ (no real notes).
+# Question → path of the document that must be in the top 3.
+- q: как восстановить бэкап
+  expect: ops/backup.md
+- q: где хранятся ключи шифрования архива
+  expect: ops/backup.md
+- q: how to deploy the server
+  expect: ops/deploy-vps.md
+- q: restart systemd service
+  expect: ops/deploy-vps.md
+- q: добавить устройство в wireguard
+  expect: ops/wireguard.md
+- q: leaked api key what to do
+  expect: ops/secret-leak.md
+- q: алерты в телеграм
+  expect: ops/monitoring.md
+- q: подключить агента
+  expect: agents/connect.md
+- q: token expiry rotation
+  expect: agents/tokens.md
+- q: рецепт борща со свеклой
+  expect: recipes/borscht.md
+- q: блины
+  expect: recipes/pancakes.md
+- q: sourdough starter
+  expect: recipes/bread.md
+- q: alpha mobile app launch plan
+  expect: projects/alpha/roadmap.md
+- q: цены подписки alpha
+  expect: projects/alpha/meeting-2026-10.md
+- q: договор beta продление
+  expect: projects/beta/contract.md
+- q: анализ крови
+  expect: personal/health.md
+- q: страховка машины
+  expect: personal/car.md
+- q: visa passport checklist
+  expect: personal/travel.md
+- q: как работает поиск stemming
+  expect: notes/brain-search.md
+- q: роли и права доступа
+  expect: notes/brain-permissions.md

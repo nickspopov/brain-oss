@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The browser smoke test (part of npm run ci) needs Playwright's Chromium and its system libraries.
+      - name: Install web dependencies and Chromium
+        run: |
+          npm run web:install
+          npx --prefix web playwright install --with-deps chromium
+
+      - name: CI
+        run: npm run ci

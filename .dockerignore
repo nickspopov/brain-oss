@@ -1,0 +1,16 @@
+# Build context is the repo root (deploy/compose.yml: context ..). Keep it small and secret-free.
+.git
+node_modules
+web/node_modules
+dist
+web/dist
+data
+coverage
+.perf-dist
+web/test-results
+web/playwright-report
+**/*.log
+.env
+deploy/.env
+deploy/proxy.env
+deploy/backups

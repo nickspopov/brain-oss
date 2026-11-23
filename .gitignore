@@ -1,0 +1,10 @@
+node_modules/
+dist/
+data/
+.env
+*.log
+coverage/
+.perf-dist/
+deploy/proxy.env
+deploy/backups/
+artifacts/

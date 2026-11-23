@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+/* Theme: the .dark class on <html> (user's choice or the system's). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-white text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100;
+}
+
+mark {
+  @apply rounded-sm bg-yellow-200 px-0.5 text-inherit dark:bg-yellow-500/40;
+}
+
+/* Markdown preview: no typography plugin, minimal and readable. */
+.md {
+  @apply leading-relaxed break-words;
+}
+.md > * + * {
+  @apply mt-3;
+}
+.md h1 { @apply mt-6 text-2xl font-semibold; }
+.md h2 { @apply mt-6 border-b border-zinc-200 pb-1 text-xl font-semibold dark:border-zinc-800; }
+.md h3 { @apply mt-5 text-lg font-semibold; }
+.md h4, .md h5, .md h6 { @apply mt-4 font-semibold; }
+.md > :first-child { @apply mt-0; }
+.md a { @apply text-sky-700 underline underline-offset-2 hover:text-sky-900 dark:text-sky-400 dark:hover:text-sky-300; }
+.md ul { @apply list-disc pl-6; }
+.md ol { @apply list-decimal pl-6; }
+.md li + li { @apply mt-1; }
+.md blockquote { @apply border-l-4 border-zinc-300 pl-4 text-zinc-600 dark:border-zinc-700 dark:text-zinc-400; }
+.md code { @apply rounded bg-zinc-100 px-1 py-0.5 font-mono text-[0.9em] dark:bg-zinc-800; }
+.md pre { @apply overflow-x-auto rounded-md bg-zinc-100 p-3 text-sm dark:bg-zinc-900; }
+.md pre code { @apply bg-transparent p-0; }
+.md table { @apply block overflow-x-auto border-collapse text-sm; }
+.md th, .md td { @apply border border-zinc-300 px-2 py-1 dark:border-zinc-700; }
+.md th { @apply bg-zinc-50 font-semibold dark:bg-zinc-900; }
+.md hr { @apply border-zinc-200 dark:border-zinc-800; }
+.md img { @apply max-w-full; }
+.md .md-image-link { @apply text-zinc-500 italic; }
+
+/* Secondary grey text (`text-zinc-500`) is lighter in the dark theme: on zinc-950 the original grey
+   falls short of the 4.5:1 contrast (WCAG AA, checked by axe in the smoke). One rule instead of editing
+   a hundred places; the light theme keeps its colour. */
+.dark .text-zinc-500 {
+  color: var(--color-zinc-400);
+}

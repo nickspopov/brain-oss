@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": { "noEmit": false, "sourceMap": false, "outDir": ".perf-dist" },
+  "include": ["src", "test/perf/memory-run.ts"]
+}
