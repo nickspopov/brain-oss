@@ -10,7 +10,7 @@
   },
   "type": "module",
   "engines": {
-    "node": ">=22.12"
+    "node": ">=22.22"
   },
   "bin": {
     "brain": "dist/src/cli.js",

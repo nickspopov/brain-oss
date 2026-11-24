@@ -72,7 +72,7 @@ network behind Caddy (automatic HTTPS), as a non-root, read-only container. Deta
 
 ### Local development
 
-Requires Node.js ≥ 22.12. Every command below needs `BRAIN_DEV=1`: without it the server and the CLI refuse
+Requires Node.js 22 (≥ 22.22). Every command below needs `BRAIN_DEV=1`: without it the server and the CLI refuse
 the default plain `http://` origin.
 
 ```sh

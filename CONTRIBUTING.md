@@ -8,7 +8,7 @@ Security issues: please do **not** open a public issue — see [SECURITY.md](SEC
 
 ## Development setup
 
-Requirements: Node.js ≥ 22.12 (see `.nvmrc`), npm, and a C toolchain only if no prebuilt `better-sqlite3`
+Requirements: Node.js 22, ≥ 22.22 (see `.nvmrc`), npm, and a C toolchain only if no prebuilt `better-sqlite3`
 binary matches your platform. The browser smoke test needs Playwright's Chromium: install the web
 dependencies first, so the pinned Playwright version is used (`npm run web:install`, then
 `npx --prefix web playwright install chromium`).
